@@ -16,16 +16,10 @@ function main()
         JSDOM.fromURL("https://www.merriam-webster.com/word-of-the-day/calendar", {
         })
         .then((dom) => {
-            console.log("1 " + dom);
-            console.log("2 " + dom.window);
-            console.log("3 " + dom.window.document);
-            console.log("4 " + dom.window.document.documentElement);
-            console.log("5 " + dom.window.document.documentElement.innerHTML);
-            
-            var container = dom.window.document.getElementsByClassName("slick-current")[0];
+            var html = dom.window.document.documentElement.innerHTML;
 
-            var word = container.getElementsByClassName("wod-l-hover")[0].innerText;
-            var def = container.getElementsByClassName("definition-block").innerText;
+            var word = html.split('<h2 class="wod-l-hover">')[1].split('</h2>')[0];
+            var def = html.split('<div class="definition-block">')[1].split('<p>')[1].split('</p>')[0];
         
             fs.writeFile('files/word.json', '{"word": "' + word + '", "def": "' + def + '"}', err => {
                 if (err) {

@@ -9,6 +9,6 @@
   "author": "bigfoott",
   "license": "MIT",
   "dependencies": {
-    "jsdom": "21.1.1"
+    "jsdom": "26.1.0"
   }
 }

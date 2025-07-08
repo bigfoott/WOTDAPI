@@ -5,6 +5,9 @@ const https = require('https');
 
 function main()
 {
+    if (!fs.existsSync('files'))
+        fs.mkdirSync('files');
+    
     return new Promise(resolve => {
         JSDOM.fromURL("https://www.merriam-webster.com/word-of-the-day/calendar", {
         })

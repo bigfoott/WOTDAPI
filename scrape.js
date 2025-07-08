@@ -13,6 +13,8 @@ function main()
         })
         .then((dom) => {
 
+            console.log(dom.window.document.innerHTML);
+            
             var container = dom.window.document.getElementById("slick-slide00");
 
             var word = container.getElementsByClassName("wod-l-hover")[0].innerText;

@@ -3,6 +3,20 @@ const jsd = require('jsdom');
 const { JSDOM } = jsd;
 const https = require('https');
 
+function process(dom, event) {
+    var container = dom.window.document.getElementById("slick-slide00");
+
+    var word = container.getElementsByClassName("wod-l-hover")[0].innerText;
+    var def = container.getElementsByClassName("definition-block").innerText;
+
+    fs.writeFile('files/word.json', '{"word": "' + word + '", "def": "' + def + '"}', err => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+    });
+}
+
 function main()
 {
     if (!fs.existsSync('files'))
@@ -13,18 +27,8 @@ function main()
         })
         .then((dom) => {
 
-            console.log(dom.window.document.innerHTML);
-            
-            var container = dom.window.document.getElementById("slick-slide00");
-
-            var word = container.getElementsByClassName("wod-l-hover")[0].innerText;
-            var def = container.getElementsByClassName("definition-block").innerText;
-
-            fs.writeFile('files/word.json', '{"word": "' + word + '", "def": "' + def + '"}', err => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
+            dom.window.addEventListener('DOMContentLoaded', event => {
+                dom.window.addEventListener('load', event => process(dom, event));
             });
         }).catch(_err =>
             {

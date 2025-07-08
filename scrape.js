@@ -1,4 +1,7 @@
 const fs = require('fs');
+const jsd = require('jsdom');
+const { JSDOM } = jsd;
+const https = require('https');
 
 function main()
 {
